@@ -1,0 +1,233 @@
+<mz-navbar [navbarClass]="'grey'">
+  <mz-navbar-item-container [align]="'right'">
+    <mz-navbar-item>
+      <a>
+        <i mz-icon-mdi [align]="'right'" [icon]="'plus-box'" [size]="'18px'">
+        </i>
+        اضاقة موضوع جديد
+      </a>
+    </mz-navbar-item>
+  </mz-navbar-item-container>
+  <mz-navbar-item-container [align]="'left'">
+    <mz-navbar-item>
+      <a [routerLink]="['/dashboard/topics/list']">
+        <i mz-icon-mdi [align]="'left'" [icon]="'arrow-left'" [size]="'18px'">
+        </i>
+        رجوع
+      </a>
+    </mz-navbar-item>
+  </mz-navbar-item-container>
+</mz-navbar>
+
+<div class="scrollable">
+  <div class="grid">
+    <div class="row">
+      <div class="col s12">
+        <form [formGroup]="topicForm" (ngSubmit)="send()">
+          <div class="row">
+            <div class="col s12">
+              <mz-input-container>
+                <i mz-icon-mdi mz-input-prefix [icon]="'json'" class="icon-prefix">
+                </i>
+                <input mz-input [label]="'عنوان الموضوع'" [validate]="true" [dataError]="'عنوان  الموضوع يجب ان يكون صحيح'"
+                  [dataSuccess]="'عنوان الموضوع جيد وصالح للاضافة'" id="headline" placeholder="ادخل رقم الصفحة" length="150"
+                  type="text" name="headline" formControlName="headline" [(ngModel)]="topicData.headline">
+              </mz-input-container>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col s12">
+              <mz-input-container>
+                <i mz-icon-mdi mz-input-prefix [icon]="'json'" class="icon-prefix">
+                </i>
+                <input mz-input [label]="'رقم الصفحة'" [validate]="true" [dataError]="'رقم الصفحة يجب ان يكون صحيح'"
+                  [dataSuccess]="'رقم الصفحة جيد وصالح للاضافة'" id="pageNumber" placeholder="ادخل رقم الصفحة" length="150"
+                  type="number" name="pageNumber" formControlName="pageNumber" [(ngModel)]="topicData.pageNumber">
+              </mz-input-container>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col s12">
+              <mz-input-container>
+                <i mz-icon-mdi mz-input-prefix [align]="'right'" [icon]="'json'" class="icon-prefix">
+                </i>
+                <select mz-select id="folder1" label="المجلد" placeholder="اختار المجلد" name="folder" formControlName="folder"
+                  [(ngModel)]="topicData.folder">
+                  <option *ngFor="let folder of folders" value={{folder._id}}>{{folder.name}}</option>
+                </select>
+              </mz-input-container>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col s12">
+              <mz-chip-input [placeholder]="'اضاقة وسم'" [secondaryPlaceholder]="'+وسم'" name="tags" formControlName="tags"
+                [(ngModel)]="topicData.tags">
+              </mz-chip-input>
+            </div>
+          </div>
+
+
+
+          <div class="row">
+            <div class="col s12">
+              <mz-textarea-container>
+                <i mz-icon-mdi mz-textarea-prefix [icon]="'json'">
+                </i>
+                <textarea mz-textarea [label]="'الموضوع'" id="body" placeholder="أكتب الموضوغ" name="body"
+                  formControlName="body" [(ngModel)]="topicData.body"></textarea>
+              </mz-textarea-container>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col s6" style="padding-right: 49px;">
+              <button type="submit" [disabled]="topicForm.invalid" mz-button class="green" [flat]="false">
+                <i mz-icon-mdi [align]="'right'" [icon]="'plus'">
+                </i>
+                أضافة
+              </button>
+            </div>
+            <div class="col s6" style="padding-right: 49px; text-align: left">
+              <button type="button" mz-button class="blue white-text" [flat]="true" (click)="addAnnotationForm.openModal()">
+                <i mz-icon-mdi [align]="'right'" [icon]="'plus'">
+                </i>
+                أضافة حاشية
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="annotations.length > 0">
+    <div class="col s12">
+      <table>
+        <thead>
+          <tr>
+            <th>الاسم</th>
+            <th>المكان</th>
+            <th>...</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let annotation of annotations">
+            <td style="cursor: pointer;">{{annotation?.body}}</td>
+            <td style="cursor: pointer;">
+              <mz-badge class="badge-view" [value]="annotation.location" [caption]="''" [badgeClass]="'blue'" [new]="true">
+              </mz-badge>
+            </td>
+            <td>
+              <button mz-button [flat]="true" (click)="delete(annotation._id, annotation.body)">
+                <i mz-icon-mdi [align]="'right'" [icon]="'delete'" [size]="'18px'">
+                </i>
+                <span>حذف</span>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<form [formGroup]="annotationForm" (ngSubmit)="sendAnnotation()">
+  <mz-modal #addAnnotationForm [fixedFooter]="true" [bottomSheet]="false" [options]="modalOptions">
+    <mz-modal-header>
+      <h4>اضف حاشية</h4>
+    </mz-modal-header>
+    <mz-modal-content>
+
+      <div class="row">
+        <div class="col s12">
+          <mz-input-container>
+            <i mz-icon-mdi mz-input-prefix [icon]="'json'" class="icon-prefix">
+            </i>
+            <select mz-select id="type" [label]="'نوع الحاشية'" [placeholder]="'اختار نوع الحاشية'" name="type" type="text"
+              formControlName="type" [(ngModel)]="annotationData.type">
+              <option value="private">خاص</option>
+              <option value="public">عام</option>
+            </select>
+          </mz-input-container>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="annotationData.type === 'private'">
+        <div class="col s12">
+          <mz-input-container>
+            <i mz-icon-mdi mz-input-prefix [icon]="'json'" class="icon-prefix">
+            </i>
+            <select mz-select id="type" [label]="'نوع الحاشية الخاصة'" [placeholder]="'اختار نوع الحاشية'" name="privateType"
+              type="text" formControlName="privateType" [(ngModel)]="annotationData.privateType">
+              <option value="instructions">توجيهات</option>
+              <option value="comments">تعليقات</option>
+            </select>
+          </mz-input-container>
+        </div>
+      </div>
+
+
+      <div class="row" *ngIf="annotationData.type === 'public'">
+        <div class="col s12">
+          <i mz-icon-mdi mz-input-prefix [icon]="'json'" class="icon-prefix">
+          </i>
+          <mz-input-container>
+            <input mz-input [label]="'رقم التسلسلي [الحاشية العامة]'" [validate]="true" [dataError]="'غير صحيح'" id="publicNumber"
+              placeholder="ادخل رقم التسلسلي" minlength=1 type="number" name="publicNumber" formControlName="publicNumber"
+              [(ngModel)]="annotationData.publicNumber">
+          </mz-input-container>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12">
+          <mz-input-container>
+            <i mz-icon-mdi mz-input-prefix [icon]="'json'" class="icon-prefix">
+            </i>
+            <input mz-input [label]="'رقم الصفحة'" [validate]="true" [dataError]="'غير صحيح'" id="pageNumber"
+              placeholder="ادخل رقم الصفحة" minlength=1 type="number" name="pageNumber" formControlName="pageNumber"
+              [(ngModel)]="annotationData.pageNumber">
+          </mz-input-container>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12">
+          <mz-input-container>
+            <i mz-icon-mdi mz-input-prefix [align]="'right'" [icon]="'json'" class="icon-prefix">
+            </i>
+            <select mz-select id="folder" label="المجلد" placeholder="اختار المجلد" name="folder" formControlName="folder"
+              [(ngModel)]="annotationData.folder">
+              <option *ngFor="let folder of folders" value={{folder._id}}>{{folder.name}}</option>
+            </select>
+          </mz-input-container>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col s12">
+          <mz-textarea-container>
+            <i mz-icon-mdi mz-textarea-prefix [icon]="'json'">
+            </i>
+            <textarea mz-textarea [label]="'الحاشية'" id="body" placeholder="اكتب الحاشية" minlength=5 name="body"
+              formControlName="body" [(ngModel)]="annotationData.body"></textarea>
+          </mz-textarea-container>
+        </div>
+      </div>
+
+
+    </mz-modal-content>
+    <mz-modal-footer>
+      <button type="submit" [disabled]="annotationForm.invalid" mz-button mz-modal-close class="green" [flat]="false">
+        <i mz-icon-mdi [align]="'right'" [icon]="'plus'">
+        </i>
+        أضافة
+      </button>
+      <button mz-button type="button" [flat]="true" mz-modal-close>أغلاق</button>
+    </mz-modal-footer>
+  </mz-modal>
+</form>

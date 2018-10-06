@@ -1,0 +1,76 @@
+<mz-navbar [navbarClass]="'grey'">
+    <mz-navbar-item-container [align]="'right'">
+      <mz-navbar-item>
+        <a>
+          <i mz-icon-mdi [align]="'right'" [icon]="'eye'" [size]="'18px'">
+          </i>
+          {{ team?.name}}
+        </a>
+      </mz-navbar-item>
+    </mz-navbar-item-container>
+    <mz-navbar-item-container [align]="'left'">
+      <mz-navbar-item>
+        <a [routerLink]="['/dashboard/team/list']">
+          <i mz-icon-mdi [align]="'left'" [icon]="'arrow-left'" [size]="'18px'">
+          </i>
+          رجوع
+        </a>
+      </mz-navbar-item>
+    </mz-navbar-item-container>
+  </mz-navbar>
+  
+  <div class="scrollable">
+    <div class="grid">
+      <div class="row">
+        <div class="col s3">
+           اسم العضو
+        </div>
+        <div class="col s9">
+          {{ team?.name}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s3">
+           الدرجه العلميه
+        </div>
+        <div class="col s9">
+          <mz-badge class="badge-view" [value]=" team?.scientificDegree" [caption]="''" [badgeClass]="'blue'" [new]="true">
+          </mz-badge>
+        </div>
+      </div>
+      <div class="row">
+          <div class="col s3">
+             الدور 
+          </div>
+          <div class="col s9">
+            <mz-badge class="badge-view" [value]=" team?.role" [caption]="''" [badgeClass]="'blue'" [new]="true">
+            </mz-badge>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col s3">
+               للجنه 
+            </div>
+            <div class="col s9">
+              <mz-badge class="badge-view" [value]=" team?.committee" [caption]="''" [badgeClass]="'blue'" [new]="true">
+              </mz-badge>
+            </div>
+          </div>
+      
+      <div class="row">
+        <div class="col s3">
+          خيارات
+        </div>
+        <div class="col s9">
+          <a mz-button [flat]="true" [routerLink]="['../../edit/'+ team?._id]" class="flat waves-effect waves-green">
+            <i mz-icon-mdi [align]="'right'" [icon]="'arrow-left'" [size]="'18px'">
+            </i>
+            تعديل</a>
+          <button mz-button class="red" (click)="delete( team?._id,team?.name)">
+            <i mz-icon-mdi [align]="'right'" [icon]="'delete'" [size]="'18px'">
+            </i>
+            حذف</button>
+        </div>
+      </div>
+    </div>
+  </div>

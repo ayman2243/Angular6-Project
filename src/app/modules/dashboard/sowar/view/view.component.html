@@ -1,0 +1,57 @@
+<mz-navbar [navbarClass]="'grey'">
+    <mz-navbar-item-container [align]="'right'">
+      <mz-navbar-item>
+        <a>
+          <i mz-icon-mdi [align]="'right'" [icon]="'eye'" [size]="'18px'">
+          </i>
+          تفاصيل السورة
+        </a>
+      </mz-navbar-item>
+    </mz-navbar-item-container>
+    <mz-navbar-item-container [align]="'left'">
+      <mz-navbar-item>
+        <a [routerLink]="['/dashboard/surah/list']">
+          <i mz-icon-mdi [align]="'left'" [icon]="'arrow-left'" [size]="'18px'">
+          </i>
+          رجوع
+        </a>
+      </mz-navbar-item>
+    </mz-navbar-item-container>
+  </mz-navbar>
+  
+  <div class="scrollable">
+    <div class="grid">
+      <div class="row">
+        <div class="col s3">
+          اسم السورة
+        </div>
+        <div class="col s9">
+            {{surah?.surahName}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s3">
+          عدد الآيات
+        </div>
+        <div class="col s9">
+          <mz-badge class="badge-view" [value]="surah?.numberOfAyat" [caption]="''" [badgeClass]="'blue'" [new]="true">
+          </mz-badge>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s3">
+          خيارات
+        </div>
+        <div class="col s9">
+          <a mz-button [flat]="true" [routerLink]="['../../edit/'+surah?._id]" class="flat waves-effect waves-green">
+            <i mz-icon-mdi [align]="'right'" [icon]="'arrow-left'" [size]="'18px'">
+            </i>
+            تعديل</a>
+          <button mz-button class="red" (click)="delete(surah?._id, surah?.surahName)">
+            <i mz-icon-mdi [align]="'right'" [icon]="'delete'" [size]="'18px'">
+            </i>
+            حذف</button>
+        </div>
+      </div>
+    </div>
+  </div>

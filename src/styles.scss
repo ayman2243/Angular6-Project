@@ -1,0 +1,179 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css?family=Cairo');
+$font: 'Cairo', sans-serif;
+
+body{
+    overflow: hidden;
+}
+*:focus{
+    outline: none;
+}
+
+.scrollable{
+    height: calc(100vh - 112px);
+    overflow: auto;
+}
+
+.select-wrapper span.caret{
+    right: unset !important;
+    left: 0 !important;
+}
+
+mz-chip-input{
+    ul{
+        img{
+            display: none !important;
+        }
+    }
+}
+
+.side-nav{
+    background-color: #414242 !important;
+    .collapsible-body{ background-color: #414242 !important; 
+        a{ padding:0 31.5px 0 31px !important}
+        .active{ 
+            background-color: #222 !important; color: #fff !important;
+            a{ 
+                color: #fff !important; 
+                .mdi{ color: #fff !important; }
+            }
+        }
+    }
+
+    mz-sidenav-link{
+        .active{ 
+            background-color: #222 !important; color: #fff !important;
+            a{ 
+                color: #fff !important; 
+                .mdi{ color: #fff !important; }
+            }
+        }
+    }
+
+    
+    .collapsible-header, .collapsible-header i{ color: rgba(255, 255, 255, 1) !important;}
+    .collapsible-header{
+        font-size: 11px !important; padding: 0 32px 0 21px !important;
+        li{ font-size: 11px !important; }
+    }
+    .collapsible .active{ 
+        .collapsible-header.active{
+            background-color: #737373 !important;
+            color: bisque !important;
+            i{
+                color: bisque !important;
+                &:before {
+                    content: "\F35D" !important;
+                }
+            }
+        }
+    }
+    
+    .active{ background-color: #222 !important; color: #fff !important;
+        a{ color: #fff !important;}  }
+    span.badge{
+        //border-radius: 50% !important;
+        font-size: 12px !important;
+        min-width: auto !important;
+        position: relative;
+        right: 9px;
+    }
+}
+
+
+
+header{
+    .dropdown-content{
+        background-color: #262626 !important;
+        left: 0px !important;
+        li{
+            a { 
+                font-size: 11px !important; 
+                color: rgba(255, 255, 255, 0.7) !important; 
+                i {
+                    margin: 0 0 0 10px !important;
+                }
+                &:hover{
+                    color: rgba(255, 255, 255, 1) !important; 
+                }
+            }
+            &:hover{
+                background-color: transparent !important;
+            }
+        }
+    }
+}
+
+.modal-overlay{
+    display: none !important;
+}
+
+.badge-view span{
+    margin-right: 0 !important;
+    float: right !important;
+}
+.paginationLayout{
+    text-align: center;
+    .pagination {
+        /* margin: 0 auto; */
+        display: inline-block !important;
+        width: auto !important;
+        .material-icons{
+            transform: rotate(180deg) !important;
+        }
+    }
+}
+
+
+.scrollable {
+    .icon-prefix{
+        top: 6px !important;
+    }
+    .input-field>label {
+        right: 0 !important;
+    }
+}
+
+.side-nav-header{
+    span.badge{
+        border-radius: 2px !important;
+        right: -10px !important;
+        top: -11px !important;
+    }
+}
+
+.material-tooltip{
+    display: none !important;
+}
+
+.side-nav.fixed.right-aligned{
+    top: 64px;
+    overflow: hidden;
+}
+.progress{margin: 0 !important;}
+
+.grey {
+    background-color: #383838 !important;
+}
+
+*:not(.material-icons){
+    font-family: 'Cairo', sans-serif !important;
+    font-size: 13px !important;
+}
+@media only screen and (max-width: 991px) {
+    .side-nav.fixed.right-aligned{
+        top: 0px;
+        overflow: auto;
+    }
+}
+@media only screen and (max-width: 601px) {
+    #toast-container{
+        left: 0 !important;
+    }
+}
+@media only screen and (min-width: 992px) {
+    #sidenav-overlay{
+        display: none !important;
+    }
+}

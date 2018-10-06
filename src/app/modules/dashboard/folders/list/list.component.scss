@@ -1,0 +1,160 @@
+.search{
+    display: inline-block;
+    width: calc(100% - 56px);
+    .field{
+        background-color: rgba(0, 0, 0, 0.3);
+        border: none;
+        box-shadow: 0px 0px 1px rgba(0,0,0,0.2);
+        border-radius: 4px;
+        padding: 7px 8px 7px 34px;
+        color: #000;
+        margin: 0 10px;
+        width: 90%;
+        color: #fff;
+        &:focus{
+            outline: none;
+        }
+        &::placeholder{
+            font-size: 10px !important;
+        }
+    }
+    i{
+        position: relative;
+        float: left;
+        left: calc(10% + -2px);
+        color: #ccc;  
+    }
+}
+
+.add-new-btn{
+    padding: 0 1rem;
+    position: relative;
+    top: 14px;
+    margin-right: 10px;
+    display: inline-block;
+    float: right;
+    background-color: rgba($color: #000000, $alpha: 0.2);
+    i{
+        color: #fff;
+        position: relative;
+        margin: 0;
+        padding: 0;
+        line-height: 2.9rem;
+    }
+}
+
+
+
+button.action{
+    padding: 0 0.7rem !important;
+    margin: 0 3px;
+}
+
+h1{
+    padding-right: 10px;
+    font-weight: bold;
+}
+.checkbox-field{
+    padding: 0;
+    margin: 0;
+    *{
+        padding: 0;
+        margin: 0 !important;
+    }
+}
+
+table{
+    td, th{
+        padding: 0;
+        text-align: center;
+        max-width:30px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        
+    }
+    i{
+        color:#adadad;
+    }
+}
+
+.Card{
+    overflow: hidden;
+    width: 100%;
+    background-color: #fff;
+    transition: box-shadow .25s;
+    border-radius: 2px;
+    padding: 10px;
+    margin: 10px 0;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 
+                0 1px 5px 0 rgba(0, 0, 0, 0.12), 
+                0 3px 1px -2px rgba(0, 0, 0, 0.2);
+    i{
+        color: #adadad;
+    }            
+    .title{
+        float: right;
+        width: 80%;
+        cursor: pointer;
+        span{
+            display: block;
+            position: relative;
+            top:4px;
+            max-width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+    }
+    .action{
+        float: left;
+    }
+}
+
+
+.action-btn{
+    width: 100%;
+    overflow: hidden;
+    i{
+        padding: 0;
+        margin: 0;
+    }
+    span {
+        float: left;
+    }
+}
+
+
+.list{
+    table{
+        td, th{
+            padding: 10px;
+            text-align: right;
+        }
+        tr:nth-child(even){
+            background-color: rgba($color: #000000, $alpha: 0.1);
+        }
+    }
+}
+
+
+
+
+@media only screen and (max-width: 602px){
+    .search i{
+        top: -55px !important;
+    }
+    .add-new-btn{
+        top: 10px;
+    }
+}
+
+@media only screen and (max-width: 992px){
+    table{
+        td, th{
+          min-width: 100px;
+          min-height: 50px;
+
+        }
+    }
+}

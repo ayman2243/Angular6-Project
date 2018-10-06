@@ -1,0 +1,81 @@
+<mz-navbar [navbarClass]="'grey'">
+
+    <mz-navbar-item-container [align]="'right'">
+      <mz-navbar-item>
+        <a>
+          <i mz-icon-mdi [align]="'right'" [icon]="'pencil'" [size]="'18px'">
+          </i>
+          {{timelineData.timelinename}}
+        </a>
+      </mz-navbar-item>
+    </mz-navbar-item-container>
+    <mz-navbar-item-container [align]="'left'">
+      <mz-navbar-item>
+        <a [routerLink]="['/dashboard/timeline/list']">
+          <i mz-icon-mdi [align]="'left'" [icon]="'arrow-left'" [size]="'18px'">
+          </i>
+          رجوع
+        </a>
+      </mz-navbar-item>
+    </mz-navbar-item-container>
+  
+  </mz-navbar>
+  
+  <div class="scrollable">
+    <div class="grid">
+      <div class="row">
+        <div class="col s12">
+          <form [formGroup]="timelineForm" (ngSubmit)="edit()">
+            <div class="row">
+              <div class="col s12">
+                <mz-input-container>
+                  <i mz-icon-mdi mz-input-prefix [icon]="'json'" class="icon-prefix">
+                  </i>
+                  <input mz-input [label]="'اسم الاطار الزمنى'" [validate]="true" [dataError]="'غير صحيح'"
+                    id="name-input" placeholder="  ادخل اسم الاطار الزمنى" minlength=5
+                    type="text" name="timelinename" formControlName="timelinename" [(ngModel)]="timelineData.timelinename">
+                </mz-input-container>
+              </div>
+            </div>
+  
+  
+            <div class="row">
+                <div class="col s12">
+                  <mz-input-container>
+                    <i mz-icon-mdi mz-input-prefix [icon]="'json'" class="icon-prefix">
+                    </i>
+                    <input mz-datepicker [label]="'تاريخ الاطار الزمنى '"
+                        id="date" placeholder="ادخل تاريخ الاطار الزمنى" minlength=1
+                      type="text" name="date" formControlName="date" [(ngModel)]="timelineData.date">
+                  </mz-input-container>
+                </div>
+              </div>
+              <div class="row">
+                  <div class="col s12">
+                    <mz-textarea-container>
+                      <i mz-icon-mdi mz-textarea-prefix [icon]="'json'">
+                      </i>
+                      <textarea mz-textarea [label]="' وصف الاطار الزمنى'" id="description-textarea" placeholder="ادخل وصف الاطار الزمنى   "
+                      minlength=5 name="description" formControlName="description" [(ngModel)]="timelineData.description"></textarea>
+                    </mz-textarea-container>
+                  </div>
+                </div>
+                
+  
+  
+           
+  
+            <div class="row">
+              <div class="col s12" style="padding-right: 49px;">
+                <button type="submit" [disabled]="timelineForm.invalid" mz-button class="green" [flat]="false">
+                  <i mz-icon-mdi [align]="'right'" [icon]="'plus'">
+                  </i>
+                  أضافة
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

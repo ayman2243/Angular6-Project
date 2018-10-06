@@ -1,0 +1,67 @@
+<mz-navbar [navbarClass]="'grey'">
+    <mz-navbar-item-container [align]="'right'">
+      <mz-navbar-item>
+        <a>
+          <i mz-icon-mdi [align]="'right'" [icon]="'plus-box'" [size]="'18px'">
+          </i>
+          اضاقة مصدر جديد 
+        </a>
+      </mz-navbar-item>
+    </mz-navbar-item-container>
+    <mz-navbar-item-container [align]="'left'">
+      <mz-navbar-item>
+        <a [routerLink]="['/dashboard/resource/list']">
+          <i mz-icon-mdi [align]="'left'" [icon]="'arrow-left'" [size]="'18px'">
+          </i>
+          رجوع
+        </a>
+      </mz-navbar-item>
+    </mz-navbar-item-container>
+  </mz-navbar>
+  
+  <div class="scrollable">
+    <div class="grid">
+      <div class="row">
+        <div class="col s12">
+          <form [formGroup]="resourceForm" (ngSubmit)="send()">
+            <div class="row">
+              <div class="col s12">
+                <mz-input-container>
+                  <i mz-icon-mdi mz-input-prefix [icon]="'json'" class="icon-prefix">
+                  </i>
+                  <input mz-input [label]="'الاسم'" [validate]="true" [dataError]="'غير صحيح'"
+                     id="name" placeholder="ادخل اسم المصدر" minlength=5
+                    type="text" name="name" formControlName="name" [(ngModel)]="resourceData.name">
+                </mz-input-container>
+              </div>
+            </div>
+  
+  
+            <div class="row">
+              <div class="col s12">
+                <mz-input-container>
+                  <i mz-icon-mdi mz-input-prefix [icon]="'json'" class="icon-prefix">
+                  </i>
+                  <input mz-input [label]="'معلومات عن المصدر '" [validate]="true" [dataError]="'غير صحيح'"
+                     id="type" placeholder="ادخل معلومات عن المصدر " minlength=1
+                    type="text" name="information" formControlName="information" [(ngModel)]="resourceData.information">
+                </mz-input-container>
+              </div>
+            </div>
+
+            
+  
+            <div class="row">
+              <div class="col s12" style="padding-right: 49px;">
+                <button type="submit" [disabled]="resourceForm.invalid" mz-button class="green" [flat]="false">
+                  <i mz-icon-mdi [align]="'right'" [icon]="'plus'">
+                  </i>
+                  أضافة
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

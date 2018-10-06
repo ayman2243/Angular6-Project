@@ -1,0 +1,155 @@
+<header>
+        <mz-navbar [navbarClass]="'navbar-fixed grey darken-4'">
+            <mz-navbar-item-container>
+                <ul id="nav-mobile" class="left">
+                    <!-- <mz-navbar-item>
+                        <li>
+                            <form>
+                                <input 
+                                    class="browser-default searchInput" 
+                                    type="text" 
+                                    placeholder="بحث"
+                                    name="q"
+                                >
+                            </form>
+                        </li>
+                    </mz-navbar-item> -->
+                    <mz-navbar-item>
+                        <li>
+                            <a mz-button id="btn-dropdown-demo">
+                                <i class="mdi mdi-dots-vertical mdi-18px"></i>
+                            </a>
+                        </li>
+                    </mz-navbar-item>
+                </ul>
+            </mz-navbar-item-container>
+            <a class="brand-logo right" href="#">
+                <img 
+                    width="35px" 
+                    src="assets/imgs/logo.jpg">
+                    <span>
+                        موسوعة النفسير
+                    </span>
+            </a>
+            <mz-navbar-item-container>
+                <ul id="nav-mobile" class="right">
+                    <mz-navbar-item>
+                        <li>
+                            <a (click)="menuToggle();">
+                                <i mz-icon-mdi class="mdi mdi-menu mdi-18px"></i>
+                            </a>
+                        </li>
+                    </mz-navbar-item>
+                </ul>
+            </mz-navbar-item-container>
+        </mz-navbar>
+        
+        <mz-dropdown
+            [id]="'dropdown-demo'"
+            [align]="'center'"
+            [belowOrigin]="true"
+            [constrainWidth]="false"
+            [dropdownButtonId]="'btn-dropdown-demo'"
+            [gutter]="true"
+            [hover]="true"
+            [inDuration]="300"
+            [outDuration]="300"
+            [stopPropagation]="true"
+            >
+            <mz-dropdown-item style="direction: ltr;">
+                <a [routerLink]="['/dashboard/profile']">
+                    <i class="mdi mdi-chart-gantt mdi-18px"></i>
+                    حسابك الشخصي
+                </a>
+                <a [routerLink]="['/dashboard/users']">
+                    <i class="mdi mdi-chart-gantt mdi-18px"></i>
+                    احصائيات عن الاداء
+                </a>
+            </mz-dropdown-item>
+        </mz-dropdown>
+</header>
+<main>
+    <div class="loadProgress">
+        <mz-progress
+            [backgroundClass]="'blue lighten-4'"
+            [progressClass]="'loadProgress'">
+        </mz-progress>
+    </div>
+    <mz-sidenav #sidenav [id]="'sidenav-right'" [closeOnClick]="true" [edge]="'right'" [fixed]="true">
+        <div class="side-nav-header">
+            <mz-chip class="chip">
+                <span class="green-text" style="font-size:50px !important; position:absolute; z-index: 2; right: 5px; background: green; top:20px; width: 10px; height: 10px; border-radius: 50%; "></span>
+                <img class="circle responsive-img" 
+                src="assets/imgs/profile-image.jpeg">
+                <span>ايمن الجوهري</span>
+            </mz-chip>
+            <mz-badge
+                [value]=""
+                [caption]="'Super Admin'"
+                [badgeClass]="'.badge-user-role'"
+                [new]="true"></mz-badge>
+        </div>
+        <div class="side-nav-body">
+            <div  *ngFor="let item of Links;">
+                <mz-sidenav-link *ngIf="!item.childern" [active]="router.url.split('/')[2] === item.router">
+                    <a [routerLink]="[item.router]" class="waves-effect waves-black"
+                    mz-tooltip
+                    [tooltip]="item.name"
+                    [position]="'left'"
+                    [delay]="0"
+                    >
+                        <i class="mdi mdi-{{item.icon}} mdi-18px"></i>
+                        <mz-badge *ngIf="item.badge === true"
+                            [value]="4"
+                            [caption]="''"
+                            [badgeClass]="item.badgeColor"
+                            [new]="true"></mz-badge>
+                        {{item.name}}
+                    </a>
+                </mz-sidenav-link>
+                <mz-sidenav-collapsible  *ngIf="item.childern">
+                    <mz-sidenav-collapsible-header>
+                        
+                        <li style="width: 100%;"
+                            mz-tooltip
+                            [tooltip]="item.name"
+                            [position]="'left'"
+                            [delay]="0">
+                                <i class="mdi mdi-menu-left mdi-18px left"></i>
+                                {{item.name}}
+                        </li>
+                       
+                    </mz-sidenav-collapsible-header>
+                    <mz-sidenav-collapsible-content>
+                        <div *ngFor="let link of item.childern">
+                            <mz-sidenav-link [active]="router.url.split('/')[2] === link.router 
+                                                       || 
+                                                       router.url.split('/')[3] === link.router.split('/')[1] 
+                                                       && router.url.split('/')[3] !== undefined
+                                                       && link.router.split('/')[1] !== undefined">
+                                <a [routerLink]="[link.router]" class="waves-effect waves-black"
+                                   mz-tooltip
+                                   [tooltip]="link.name"
+                                   [position]="'left'"
+                                   [delay]="0"
+                                >
+                                    <i class="mdi mdi-{{link.icon}} mdi-18px"></i>
+                                    <mz-badge *ngIf="link.badge === true"
+                                        [value]="2"
+                                        [caption]="''"
+                                        [badgeClass]="link.badgeColor"
+                                        [new]="true"></mz-badge>
+                                    <span style="padding-left: 10px; color: #5f5f5f;">↵</span> {{link.name}}
+                                </a>
+                            </mz-sidenav-link>
+                        </div>
+                    </mz-sidenav-collapsible-content>
+                </mz-sidenav-collapsible>
+            </div>
+        </div> 
+    </mz-sidenav>
+    <div class="page-content">
+        <router-outlet></router-outlet>
+    </div>
+</main>
+<footer></footer>

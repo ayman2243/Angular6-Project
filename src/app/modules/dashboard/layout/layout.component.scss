@@ -1,0 +1,129 @@
+header{
+    .brand-logo{
+        img{
+            top: 12px;
+            position: relative;
+            border-radius: 50%;
+        }
+        span{
+            position: relative;
+            top: -2px;
+            left: -21px;
+        }
+    }
+    .right{
+        right: 5rem;
+    }
+    
+    .searchInput{
+        background-color: #333;
+        border: solid 1px #303030;
+        border-radius: 10px;
+        padding: 3px 8px;
+        &:focus{
+            outline: none;
+        }
+        &::placeholder{
+            font-size: 10px !important;
+        }
+    }
+}
+.side-nav{
+    &-header{
+        background-color: #1a1a1a;
+        padding: 19px 13px;
+        .chip{
+            height: 20px;
+            line-height: 20px;
+            position: relative;
+            top: 3px;
+            background-color: transparent;
+            img{
+                position: relative;
+                top: -13px;
+                border: solid 1px #333;
+                box-shadow: 0 0 1px #000;
+                height: 42px;
+                width: 42px;
+            }
+            span{
+                font-size: 11px !important;
+                color: #fff;
+                position: relative;
+                top: -3px;
+            }
+        }
+        border-bottom: solid 1px #333;
+        box-shadow: 0 0 1px #000;
+    }
+    &-body{
+        a{ 
+            font-size: 11px !important; color: rgba(255, 255, 255, 0.87); 
+            .mdi{
+                color:#c7c7c7;
+            } 
+        }
+        a.active{
+            color: #fff !important; 
+            .mdi{
+                color: #fff !important; 
+            }
+        }
+    }
+
+    a{
+        color: #fff !important;
+    }
+}
+
+.loadProgress{
+    display: none;
+}
+
+.menuClosedOnLargeScreen{
+    .chip{
+        position: relative !important;
+        right: 280px !important;
+        .span{ display: none !important; }
+    }
+    i{
+        position: relative !important;
+        right: 30px !important;
+    }
+}
+
+@media only screen and (max-width: 602px){
+.brand-logo {
+        img{
+                top: 8px !important;
+                right: -12px;
+            }
+        span{
+            top: -5px !important;
+            left: -8px !important;
+        }
+    }
+}
+
+@media only screen and (max-width: 991px){
+    main, footer{
+        padding: 0px;
+    }  
+}
+
+@media only screen and (min-width: 992px){
+    .side-nav-body{
+        height: 100vh;
+        overflow: scroll;
+        padding-bottom: 200px;
+    }
+    main, footer{
+        padding: 0px 300px 0px 0px;
+    }
+    .show-on-med-and-down{
+        display: none;
+    }    
+}
+.side-nav-body::-webkit-scrollbar{
+    display: none;
+}

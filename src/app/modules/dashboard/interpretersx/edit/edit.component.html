@@ -1,0 +1,184 @@
+<mz-navbar [navbarClass]="'grey'">
+
+  <mz-navbar-item-container [align]="'right'">
+    <mz-navbar-item>
+      <a>
+        <i mz-icon-mdi [align]="'right'" [icon]="'pencil'" [size]="'18px'">
+        </i>
+        {{interpreterData.name}}
+      </a>
+    </mz-navbar-item>
+  </mz-navbar-item-container>
+  <mz-navbar-item-container [align]="'left'">
+    <mz-navbar-item>
+      <a [routerLink]="['/dashboard/interpreters/list']">
+        <i mz-icon-mdi [align]="'left'" [icon]="'arrow-left'" [size]="'18px'">
+        </i>
+        رجوع
+      </a>
+    </mz-navbar-item>
+  </mz-navbar-item-container>
+
+</mz-navbar>
+
+<div class="scrollable">
+  <div class="grid">
+    <div class="row">
+      <div class="col s12">
+        <form [formGroup]="interpreterForm" (ngSubmit)="edit()">
+
+          <div class="row" class="chipView" *ngIf="topics.length > 0">
+            <div class="col s12">
+              <mz-chip [close]="true" (delete)="onDeleteSelectedTopic($event)">
+                <img src="https://placehold.it/250x250">
+                {{ (topics.length > 0)? topics[0].tag: null }}
+              </mz-chip>
+            </div>
+          </div>
+
+          <div class="row" class="chipInput">
+            <i mz-icon-mdi mz-input-prefix [icon]="'json'" class="icon-prefix">
+            </i>
+            <div class="col s12">
+              <mz-chip-input (input)="searchTopic()" [autocompleteOptions]="autocompleteOptions" [(ngModel)]="topics"
+                (add)="onAddTopic($event)" [placeholder]="'أختار موضوع للوصف*'" (delete)="onDeleteTopic($event)"
+                (select)="onSelectTopic($event)" [ngModelOptions]="{standalone: true}">
+              </mz-chip-input>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col s12">
+              <mz-input-container>
+                <i mz-icon-mdi mz-input-prefix [icon]="'json'" class="icon-prefix">
+                </i>
+                <input mz-input [label]="'الاسم*'" [validate]="true" [dataError]="'غير صحيح'" id="name" placeholder="ادخل اسم المفسر"
+                  minlength=5 type="text" name="name" formControlName="name" [(ngModel)]="interpreterData.name">
+              </mz-input-container>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col s12">
+              <mz-input-container>
+                <i mz-icon-mdi mz-input-prefix [icon]="'json'" class="icon-prefix">
+                </i>
+                <select mz-select id="type" [label]="'نوع المفسر*'" [placeholder]="'اختار نوع المفسر'" name="type" type="text"
+                  formControlName="type" [(ngModel)]="interpreterData.type">
+                  <option value="type1">صحابي</option>
+                  <option value="type2">تابع</option>
+                  <option value="type3">اتباع التابعين</option>
+                  <option value="type4">ما بعد تابعي التابعين</option>
+                </select>
+              </mz-input-container>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col s12">
+              <mz-input-container>
+                <i mz-icon-mdi mz-input-prefix [icon]="'json'" class="icon-prefix">
+                </i>
+                <select mz-select id="type" [label]="'رتبة المفسر*'" [placeholder]="'اختار رتبة المفسر'" name="rank"
+                  type="text" formControlName="rank" [(ngModel)]="interpreterData.rank">
+                  <option value="rank1">المكثرون</option>
+                  <option value="rank2">المقلون</option>
+                  <option value="rank3">أقل من ١٠٠</option>
+                </select>
+              </mz-input-container>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="interpreterData.rank === 'rank1'">
+            <div class="col s12">
+              <mz-input-container>
+                <i mz-icon-mdi mz-input-prefix [icon]="'json'" class="icon-prefix">
+                </i>
+                <select mz-select id="type" [label]="'فئة المكثرون*'" [placeholder]="'اختار فئة المكثرون'" name="subRank"
+                  type="text" formControlName="subRank" [(ngModel)]="interpreterData.subRank">
+                  <option value="rank1_1">طبقة أولي</option>
+                  <option value="rank1_2">طبقة ثانية</option>
+                  <option value="rank1_3">طبقة ثالثة</option>
+                  <option value="rank1_4">طبقة رابعة</option>
+                </select>
+              </mz-input-container>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="interpreterData.rank === 'rank2'">
+            <div class="col s12">
+              <mz-input-container>
+                <i mz-icon-mdi mz-input-prefix [icon]="'json'" class="icon-prefix">
+                </i>
+                <select mz-select id="type" [label]="'فئة المقلون*'" [placeholder]="'اختار فئة المقلون'" name="subRank"
+                  type="text" formControlName="subRank" [(ngModel)]="interpreterData.subRank">
+                  <option value="rank2_1">400 - 500</option>
+                  <option value="rank2_2">300 - 400</option>
+                  <option value="rank2_3">200 - 300</option>
+                  <option value="rank2_4">100 - 200</option>
+                </select>
+              </mz-input-container>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="interpreterData.rank === 'rank3'">
+            <div class="col s12">
+              <mz-input-container>
+                <i mz-icon-mdi mz-input-prefix [icon]="'json'" class="icon-prefix">
+                </i>
+                <select mz-select id="type" [label]="'فئة أقل من ١٠٠*'" [placeholder]="'اختار فئة أقل من ١٠٠'" name="subRank"
+                  type="text" formControlName="subRank" [(ngModel)]="interpreterData.subRank">
+                  <option value="rank3_1">أبي موسي</option>
+                  <option value="rank3_2">زيد بن ثابت</option>
+                  <option value="rank3_3">إبن عمرو</option>
+                  <option value="rank3_4">إبن الزبير</option>
+                </select>
+              </mz-input-container>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col s12">
+              <mz-input-container>
+                <i mz-icon-mdi mz-input-prefix [icon]="'json'" class="icon-prefix">
+                </i>
+                <input mz-datepicker [label]="'تاريخ الوفاة'" id="dateDeath" placeholder="ادخل تاريخ الوفاة" minlength=1
+                  type="text" name="dateDeath" formControlName="dateDeath" [(ngModel)]="interpreterData.dateDeath">
+              </mz-input-container>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col s12">
+              <mz-input-container>
+                <i mz-icon-mdi mz-input-prefix [icon]="'json'" class="icon-prefix">
+                </i>
+                <input mz-input [label]="'عدد التفسيرات'" [validate]="true" [dataError]="'غير صحيح'" id="numbersExplanation"
+                  placeholder="ادخل عدد التفسيرات" minlength=1 type="number" name="numbersExplanation" formControlName="numbersExplanation"
+                  [(ngModel)]="interpreterData.numbersExplanation">
+              </mz-input-container>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col s12">
+              <input type="hidden" name="information" formControlName="information" [(ngModel)]="interpreterData.information">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col s12" style="padding-right: 49px;">
+              <button type="submit" [disabled]="interpreterForm.invalid" mz-button class="green" [flat]="false">
+                <i mz-icon-mdi [align]="'right'" [icon]="'pencil'">
+                </i>
+                تعديل
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

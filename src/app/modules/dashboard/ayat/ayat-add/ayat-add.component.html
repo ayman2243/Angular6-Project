@@ -1,0 +1,65 @@
+<mz-navbar [navbarClass]="'grey'">
+  <mz-navbar-item-container [align]="'right'">
+    <mz-navbar-item>
+      <a>
+        <i mz-icon-mdi [align]="'right'" [icon]="'plus-box'" [size]="'18px'">
+        </i>
+        اضاقة آية جديدة
+      </a>
+    </mz-navbar-item>
+  </mz-navbar-item-container>
+  <mz-navbar-item-container [align]="'left'">
+    <mz-navbar-item>
+      <a [routerLink]="['/dashboard/aya/list']">
+        <i mz-icon-mdi [align]="'left'" [icon]="'arrow-left'" [size]="'18px'">
+        </i>
+        رجوع
+      </a>
+    </mz-navbar-item>
+  </mz-navbar-item-container>
+</mz-navbar>
+
+<div class="scrollable">
+  <div class="grid">
+    <div class="row">
+      <div class="col s12">
+        <form [formGroup]="ayaForm" (ngSubmit)="addAya()">
+
+          <div class="row">
+            <div class="col s12">
+              <mz-textarea-container>
+                <i mz-icon-mdi mz-textarea-prefix [align]="'right'" [icon]="'json'">
+                </i>
+                <textarea mz-textarea [label]="'نص الآية'" id="text" placeholder="أكتب نص الآية" name="text"
+                  formControlName="text" minlength=2 [(ngModel)]="aya.text"></textarea>
+              </mz-textarea-container>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col s12">
+              <mz-input-container>
+                <i mz-icon-mdi mz-input-prefix [align]="'right'" [icon]="'json'" class="icon-prefix">
+                </i>
+                <select mz-select id="options-select" label="السورة" placeholder="اختار السورة" [(ngModel)]="aya.surah_id"
+                  formControlName="surah_id" name="surah_id" (change)="setName($event.target.value)">
+                  <option *ngFor="let surah of sowar?.docs" value={{surah._id}}>{{surah.surahName}}</option>
+                </select>
+              </mz-input-container>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col s12" style="padding-right: 49px;">
+              <button type="submit" [disabled]="ayaForm.invalid" mz-button class="green" [flat]="false">
+                <i mz-icon-mdi [align]="'right'" [icon]="'plus'">
+                </i>
+                أضافة
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

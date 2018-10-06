@@ -1,0 +1,70 @@
+<mz-navbar [navbarClass]="'grey'">
+    <mz-navbar-item-container [align]="'right'">
+      <mz-navbar-item>
+        <a>
+          <i mz-icon-mdi [align]="'right'" [icon]="'plus-box'" [size]="'18px'">
+          </i>
+          اضاقة عنوان جديد
+        </a>
+      </mz-navbar-item>
+    </mz-navbar-item-container>
+    <mz-navbar-item-container [align]="'left'">
+      <mz-navbar-item>
+        <a [routerLink]="['/dashboard/titles/list']">
+          <i mz-icon-mdi [align]="'left'" [icon]="'arrow-left'" [size]="'18px'">
+          </i>
+          رجوع
+        </a>
+      </mz-navbar-item>
+    </mz-navbar-item-container>
+  </mz-navbar>
+  
+  <div class="scrollable">
+    <div class="grid">
+      <div class="row">
+        <div class="col s12">
+          <form [formGroup]="titleForm" (ngSubmit)="send()">
+            <div class="row">
+              <div class="col s12">
+                <mz-input-container>
+                  <i mz-icon-mdi mz-input-prefix [icon]="'json'" class="icon-prefix">
+                  </i>
+                  <input mz-input [label]="'اسم العنوان'" [validate]="true" [dataError]="'  اسم العنوان يجب ان يكون صحيح'"
+                    [dataSuccess]="' اسم العنوان جيد وصالح للاضافة'" id="title" placeholder="ادخل  اسم العنوان" length="150"
+                    type="text" name="name" formControlName="name" [(ngModel)]="titleData.name">
+                </mz-input-container>
+              </div>
+            </div>
+  
+            <div class="row">
+              <div class="col s12">
+                <mz-select-container>
+                  <i mz-icon-mdi mz-input-prefix [icon]="'json'" class="icon-prefix">
+                  </i>
+                  <select mz-select
+                    name="type" formControlName="type" [(ngModel)]="titleData.type"
+                    [label]="'نوع العنوان'"
+                    placeholder="ادخل رقم الصفحة"
+                  >
+                      <option value="Surah">سورة</option>
+                      <option value="Aya">أية</option>
+                  </select>
+                </mz-select-container>
+              </div>
+            </div>
+  
+  
+            <div class="row">
+              <div class="col s12" style="padding-right: 49px;">
+                <button type="submit" [disabled]="titleForm.invalid" mz-button class="green" [flat]="false">
+                  <i mz-icon-mdi [align]="'right'" [icon]="'plus'">
+                  </i>
+                  أضافة
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

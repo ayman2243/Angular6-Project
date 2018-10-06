@@ -1,0 +1,90 @@
+
+<mz-navbar [navbarClass]="'grey'">
+    <mz-navbar-item-container [align]="'right'">
+      <mz-navbar-item>
+        <a>
+          <i mz-icon-mdi [align]="'right'" [icon]="'plus-box'" [size]="'18px'">
+          </i>
+          اضاقة عضو جديد 
+        </a>
+      </mz-navbar-item>
+    </mz-navbar-item-container>
+    <mz-navbar-item-container [align]="'left'">
+      <mz-navbar-item>
+        <a [routerLink]="['/dashboard/team/list']">
+          <i mz-icon-mdi [align]="'left'" [icon]="'arrow-left'" [size]="'18px'">
+          </i>
+          رجوع
+        </a>
+      </mz-navbar-item>
+    </mz-navbar-item-container>
+  </mz-navbar>
+  
+  <div class="scrollable">
+    <div class="grid">
+      <div class="row">
+        <div class="col s12">
+          <form [formGroup]="teamForm" (ngSubmit)="send()">
+            <div class="row">
+              <div class="col s12">
+                <mz-input-container>
+                  <i mz-icon-mdi mz-input-prefix [icon]="'json'" class="icon-prefix">
+                  </i>
+                  <input mz-input [label]="'اسم العضو'" [validate]="true" [dataError]="'غير صحيح'"
+                     id="name" placeholder="ادخل اسم العضو " minlength=5
+                    type="text" name="name" formControlName="name" [(ngModel)]="teamData.name">
+                </mz-input-container>
+              </div>
+            </div>
+  
+  
+            <div class="row">
+              <div class="col s12">
+                <mz-input-container>
+                  <i mz-icon-mdi mz-input-prefix [icon]="'json'" class="icon-prefix">
+                  </i>
+                  <input mz-input [label]="'  الدرجه العلميه '" [validate]="true" [dataError]="'غير صحيح'"
+                     id="type" placeholder="ادخل الدرجه العلميه " minlength=1
+                    type="text" name="scientificDegree" formControlName="scientificDegree" [(ngModel)]="teamData.scientificDegree">
+                </mz-input-container>
+              </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                  <mz-input-container>
+                    <i mz-icon-mdi mz-input-prefix [icon]="'json'" class="icon-prefix">
+                    </i>
+                    <input mz-input [label]="'  دور العضو  '" [validate]="true" [dataError]="'غير صحيح'"
+                       id="type" placeholder="ادخل دور العضو " minlength=1
+                      type="text" name="role" formControlName="role" [(ngModel)]="teamData.role">
+                  </mz-input-container>
+                </div>
+              </div>
+              <div class="row">
+                  <div class="col s12">
+                    <mz-input-container>
+                      <i mz-icon-mdi mz-input-prefix [icon]="'json'" class="icon-prefix">
+                      </i>
+                      <input mz-input [label]="'  للجنه  '" [validate]="true" [dataError]="'غير صحيح'"
+                         id="type" placeholder="ادخل للجنه " minlength=1
+                        type="text" name="committee" formControlName="committee" [(ngModel)]="teamData.committee">
+                    </mz-input-container>
+                  </div>
+                </div>
+
+            
+  
+            <div class="row">
+              <div class="col s12" style="padding-right: 49px;">
+                <button type="submit" [disabled]="teamForm.invalid" mz-button class="green" [flat]="false">
+                  <i mz-icon-mdi [align]="'right'" [icon]="'plus'">
+                  </i>
+                  أضافة
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

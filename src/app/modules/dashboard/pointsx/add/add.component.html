@@ -1,0 +1,85 @@
+<mz-navbar [navbarClass]="'grey'">
+  <mz-navbar-item-container [align]="'right'">
+    <mz-navbar-item>
+      <a>
+        <i mz-icon-mdi [align]="'right'" [icon]="'plus-box'" [size]="'18px'">
+        </i>
+        اضاقة تفسير جديد
+      </a>
+    </mz-navbar-item>
+  </mz-navbar-item-container>
+  <mz-navbar-item-container [align]="'left'">
+    <mz-navbar-item>
+      <a [routerLink]="['/dashboard/pints/list']">
+        <i mz-icon-mdi [align]="'left'" [icon]="'arrow-left'" [size]="'18px'">
+        </i>
+        رجوع
+      </a>
+    </mz-navbar-item>
+  </mz-navbar-item-container>
+</mz-navbar>
+
+<div class="scrollable">
+  <div class="grid">
+    <div class="row">
+      <div class="col s12">
+        <form [formGroup]="pointForm" (ngSubmit)="send()">
+
+          <div class="row">
+            <div class="col s12">
+              <mz-select-container>
+                <select multiple mz-select id="options-select" [label]="'Label'" [placeholder]="'Placeholder'">
+                  <optgroup label="Group 1">
+                      <input
+                      id="pageNumber" placeholder="ادخل رقم الصفحة" minlength=1
+                     type="number" name="pageNumber" formControlName="pageNumber" [(ngModel)]="pointData.pageNumber">
+                  </optgroup>
+                  <optgroup label="Group 1">
+                    <option data-icon="assets/select-icon-1.jpg" class="left circle">Option 1</option>
+                    <option data-icon="assets/select-icon-2.jpg" class="left circle">Option 2</option>
+                  </optgroup>
+                  <optgroup label="Group 2">
+                    <option data-icon="assets/select-icon-3.jpg" class="left circle">Option 3</option>
+                  </optgroup>
+                </select>
+              </mz-select-container>
+            </div>
+          </div>
+          <!-- <div class="row">
+              <div class="col s12">
+                <mz-input-container>
+                  <i mz-icon-mdi mz-input-prefix [icon]="'json'" class="icon-prefix">
+                  </i>
+                  <input mz-input [label]="'رقم الحصفة'" [validate]="true" [dataError]="'غير صحيح'"
+                     id="pageNumber" placeholder="ادخل رقم الصفحة" minlength=1
+                    type="number" name="pageNumber" formControlName="pageNumber" [(ngModel)]="pointData.pageNumber">
+                </mz-input-container>
+              </div>
+            </div>
+  
+  
+            <div class="row">
+              <div class="col s12">
+                <mz-textarea-container>
+                  <i mz-icon-mdi mz-textarea-prefix [icon]="'json'">
+                  </i>
+                  <textarea mz-textarea  [label]="'التفسير'" id="text" placeholder="أكتب التفسير"
+                     name="text" formControlName="text" minlength=5 [(ngModel)]="pointData.text"></textarea>
+                </mz-textarea-container>
+              </div>
+            </div>
+  
+            <div class="row">
+              <div class="col s12" style="padding-right: 49px;">
+                <button type="submit" [disabled]="pointForm.invalid" mz-button class="green" [flat]="false">
+                  <i mz-icon-mdi [align]="'right'" [icon]="'plus'">
+                  </i>
+                  أضافة
+                </button>
+              </div>
+            </div> -->
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

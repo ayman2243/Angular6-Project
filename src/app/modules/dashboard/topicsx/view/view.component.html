@@ -1,0 +1,102 @@
+<mz-navbar [navbarClass]="'grey'">
+    <mz-navbar-item-container [align]="'right'">
+      <mz-navbar-item>
+        <a>
+          <i mz-icon-mdi [align]="'right'" [icon]="'eye'" [size]="'18px'">
+          </i>
+          {{topic?.headline}}
+        </a>
+      </mz-navbar-item>
+    </mz-navbar-item-container>
+    <mz-navbar-item-container [align]="'left'">
+      <mz-navbar-item>
+        <a [routerLink]="['/dashboard/topics/list']">
+          <i mz-icon-mdi [align]="'left'" [icon]="'arrow-left'" [size]="'18px'">
+          </i>
+          رجوع
+        </a>
+      </mz-navbar-item>
+    </mz-navbar-item-container>
+  </mz-navbar>
+  
+  <div class="scrollable">
+    <div class="grid">
+      <div class="row">
+        <div class="col s3">
+          عنوان الموضوع
+        </div>
+        <div class="col s9">
+            {{topic?.headline}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s3">
+          رقم الصفحة
+        </div>
+        <div class="col s9">
+          <mz-badge class="badge-view" [value]="topic?.pageNumber" [caption]="''" [badgeClass]="'blue'" [new]="true">
+          </mz-badge>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s3">
+          الموضوع
+        </div>
+        <div class="col s9">
+          {{topic?.body}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s3">
+          خيارات
+        </div>
+        <div class="col s9">
+          <a mz-button [flat]="true" [routerLink]="['../../edit/'+topic?._id]" class="flat waves-effect waves-green">
+            <i mz-icon-mdi [align]="'right'" [icon]="'arrow-left'" [size]="'18px'">
+            </i>
+            تعديل</a>
+          <button mz-button class="red" (click)="delete(topic?._id, topic?.headline)">
+            <i mz-icon-mdi [align]="'right'" [icon]="'delete'" [size]="'18px'">
+            </i>
+            حذف</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="topic?.annotation.length > 0" >
+      <div class="col s12">
+          <table>
+              <thead>
+                <tr>
+                  <th>الاسم</th>
+                  <th>المكان</th>
+                  <th>...</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let annotation of topic?.annotation">
+                  <td style="cursor: pointer;" *ngIf="annotation['_id'] !== null">{{ annotation?._id.body }}</td>
+                  <td *ngIf="annotation['_id'] !== null">
+                    <mz-badge class="badge-view"
+                      [value]="annotation?.charLocation"
+                      [caption]="''"
+                      [badgeClass]="'blue'"
+                      [new]="true">
+                    </mz-badge>
+                  </td>
+                  <td *ngIf="annotation['_id'] !== null">
+                    <button mz-button [flat]="true" (click)="edit(annotation?._id._id)">
+                      <i mz-icon-mdi
+                        [align]="'right'"
+                        [icon]="'pencil'"
+                        [size]="'18px'">
+                      </i>                
+                      <span>تعديل</span>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+      </div>
+    </div>
+  </div>

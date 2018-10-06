@@ -1,0 +1,66 @@
+
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<div class="container">
+  <h1>إدخال علامة جديدة</h1>
+  <form [formGroup]="symbolForm" (ngSubmit)="add()">
+    <div class="form-group">
+      <label for="refersTo">تشير الي</label>
+      <input type="text" class="form-control" id="refersTo"  [(ngModel)]="symbol.refersTo" formControlName="refersTo" name="refersTo" required >
+    </div>
+
+    <div class="form-group">
+      <label for="bookSection">تقع في أي جزء من الموسوعة</label>
+      <input type="text" class="form-control" id="bookSection" [(ngModel)]="symbol.bookSection" formControlName="bookSection" name="bookSection">
+    </div>
+
+
+    
+    <div class="form-group">
+      <label for="pageNumber">رقم الصفحة</label>
+      <input type="text" class="form-control" id="pageNumber" [(ngModel)]="symbol.pageNumber" formControlName="pageNumber" name="pageNumber">
+    </div>
+
+
+    <mz-select-container style="text-align: left">
+      <select  mz-select
+        id="color-select"
+        label="لون النص"
+        placeholder="اختار لون النص" 
+        [(ngModel)]="symbol.color" formControlName="color" name="color"
+      >
+        
+          <option value="Green">اخضر</option>
+          <option value="Red">احمر</option>
+        
+      </select>
+    </mz-select-container>
+
+
+    <mz-select-container style="text-align: left">
+      <select  mz-select
+        id="type-select"
+        label="لون نوع العلامة"
+        placeholder="اختار نوع العلامة" 
+        [(ngModel)]="symbol.symbolType" formControlName="symbolType" name="symbolType"
+      >
+        
+          <option value="Header">في جسد الكتاب</option>
+          <option value="Footer">في تذييل الكتاب</option>
+        
+      </select>
+    </mz-select-container>
+
+
+
+
+
+
+
+<button type="submit" class="waves-effect waves-light btn-large green" [disabled]="symbolForm.invalid" ><i class="material-icons right">add</i>إضافة علامة جديدة</button>
+
+
+    
+<a class="btn-floating btn-large waves-effect waves-light red" style="position: fixed;  left: 0; margin:20px;" href="dashboard/symbol/"><i class="material-icons right">keyboard_return</i></a>
+  
+  </form>

@@ -1,0 +1,184 @@
+<mz-navbar [navbarClass]="'grey'">
+  <div class="row" style="padding:0; margin: 0;">
+    <div class="col s12" style="padding:0; margin: 0; max-height: 56px; overflow: hidden;">
+      <a class="add-new-btn" mz-button [flat]="true" [routerLink]="['/dashboard','aya','add']">
+        <i mz-icon-mdi
+          [icon]="'plus-box'"
+          [size]="'18px'">
+        </i>
+      </a>
+      <form class="search" style="max-height: 64px;">
+          <input 
+              class="browser-default field" 
+              type="text" 
+              placeholder="بحث في الآيات"
+              name="q"
+              #search
+          >
+          <i mz-icon-mdi
+            [align]="'center'"
+            [icon]="'magnify'"
+            [size]="'18px'">
+          </i>
+      </form>        
+    </div>
+    <!-- <div class="col s4" style="padding:0; margin: 0;">
+        <mz-navbar-item-container [align]="'left'">
+            <mz-navbar-item [active]="viewStyle === 'grid'">
+                <a (click)="changeView('grid');">  
+                  <i mz-icon-mdi
+                    [align]="'center'"
+                    [icon]="'view-grid'"
+                    [size]="'18px'">
+                  </i>
+                </a>
+            </mz-navbar-item>
+            <mz-navbar-item [active]="viewStyle === 'table'">
+                <a (click)="changeView('table');">  
+                  <i mz-icon-mdi
+                    [align]="'center'"
+                    [icon]="'view-list'"
+                    [size]="'18px'">
+                  </i>
+                </a>
+            </mz-navbar-item>
+          </mz-navbar-item-container>
+    </div> -->
+  </div>
+</mz-navbar>
+<div class="scrollable" id="scrollable">
+  <h1>الآيات</h1>
+  <div class="grid" *ngIf="viewStyle === 'grid'">
+    <div class="row">  
+      <div class="col s12 m4 l3" *ngFor="let item of ayaList?.docs | searchaya: search.value: route.snapshot.params['page'] | async">
+        <div class="Card">
+          <div class="title" (click)="view(item._id)">
+            <i mz-icon-mdi
+              [align]="'right'"
+              [icon]="'json'"
+              [size]="'18px'">
+            </i>
+            <span>{{item?.text}}</span>
+          </div>
+          <div class="action" id="action-dropdown-card-folder-{{item._id}}">
+            <i mz-icon-mdi
+              [align]="'center'"
+              [icon]="'dots-vertical'"
+              [size]="'18px'">
+            </i>
+          </div>
+          <mz-dropdown
+            [id]="'dropdown-card-folder-'+item._id"
+            [align]="'right'"
+            [belowOrigin]="true"
+            [constrainWidth]="true"
+            [dropdownButtonId]="'action-dropdown-card-folder-'+item._id"
+            [gutter]="true"
+            [hover]="true"
+            [inDuration]="300"
+            [outDuration]="300"
+            [stopPropagation]="true"
+          >
+            <mz-dropdown-item>
+              <a class="action-btn" [routerLink]="['/dashboard','aya','edit', item._id]">
+                <i mz-icon-mdi
+                  [icon]="'folder-edit'"
+                  [size]="'18px'">
+                </i>
+                <span>تعديل</span>
+              </a>
+            </mz-dropdown-item>
+            <mz-dropdown-item>
+              <a class="action-btn" (click)="delete(item._id, item.name)" >
+                <i mz-icon-mdi
+                  [icon]="'delete'"
+                  [size]="'18px'">
+                </i>                
+                <span>حذف</span>
+              </a>
+            </mz-dropdown-item>
+          </mz-dropdown>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="list" *ngIf="viewStyle === 'table'">
+      <table>
+        <thead>
+          <tr>
+            <th>نص الآية</th>
+            <th>اسم السورة</th>
+            <th>...</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of ayaList?.docs | searchaya: search.value: route.snapshot.params['page'] | async">
+            <td (click)="viewAya(item._id)" style="cursor: pointer;">{{item?.text}}</td>
+            <td (click)="viewSurah(item.surah_id)" style="cursor: pointer;">
+              <mz-badge class="badge-view"
+                [value]="item.surahName"
+                [caption]="''"
+                [badgeClass]="'blue'"
+                [new]="true">
+              </mz-badge>
+            </td>
+            <td>
+              <button mz-button [flat]="true" id="action-dropdown-table-folder-{{item._id}}">
+                <i mz-icon-mdi
+                  [align]="'center'"
+                  [icon]="'dots-vertical'"
+                  [size]="'18px'">
+                </i>
+              </button>
+              <mz-dropdown
+                [id]="'dropdown-table-folder-'+item._id"
+                [align]="'right'"
+                [belowOrigin]="true"
+                [constrainWidth]="true"
+                [dropdownButtonId]="'action-dropdown-table-folder-'+item._id"
+                [gutter]="true"
+                [hover]="true"
+                [inDuration]="300"
+                [outDuration]="300"
+                [stopPropagation]="true"
+              >
+                <mz-dropdown-item>
+                  <a class="action-btn" [routerLink]="['/dashboard','aya','edit', item._id]">
+                    <i mz-icon-mdi
+                      [icon]="'pencil'"
+                      [size]="'18px'">
+                    </i>
+                    <span>تعديل</span>
+                  </a>
+                </mz-dropdown-item>
+                <mz-dropdown-item>
+                  <a class="action-btn" (click)="delete(item._id, item.text)">
+                    <i mz-icon-mdi
+                      [icon]="'delete'"
+                      [size]="'18px'">
+                    </i>                
+                    <span>حذف</span>
+                  </a>
+                </mz-dropdown-item>
+              </mz-dropdown>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+
+  <div class="row" style="padding: 20px 20px 30px 20px;">
+    <div class="col s12 paginationLayout" *ngIf="ayaList?.pagination.pages > 1">
+      <mz-pagination
+        (pageChange)="onPageChange($event)"
+        [currentPage]="ayaList?.pagination?.page"
+        [enableFirstAndLastPageButtons]="true"
+        [itemsPerPage]="10"
+        [totalItems]="ayaList?.pagination?.pages * 10"
+      >
+      </mz-pagination>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,177 @@
+<mz-navbar [navbarClass]="'grey'">
+  <div class="row" style="padding:0; margin: 0;">
+    <div class="col s12" style="padding:0; margin: 0; max-height: 56px; overflow: hidden;">
+      <a class="add-new-btn" mz-button [flat]="true" [routerLink]="['/dashboard','documents','add']">
+        <i mz-icon-mdi
+          [icon]="'plus-box'"
+          [size]="'18px'">
+        </i>
+      </a>
+      <form class="search" style="max-height: 64px;">
+          <input 
+              class="browser-default field" 
+              type="text" 
+              placeholder="بحث في المستندات"
+              name="q"
+              #search
+          >
+          <i mz-icon-mdi
+            [align]="'center'"
+            [icon]="'magnify'"
+            [size]="'18px'">
+          </i>
+      </form>        
+    </div>
+    <!-- <div class="col s4" style="padding:0; margin: 0;">
+        <mz-navbar-item-container [align]="'left'">
+            <mz-navbar-item [active]="viewStyle === 'grid'">
+                <a (click)="changeView('grid');">  
+                  <i mz-icon-mdi
+                    [align]="'center'"
+                    [icon]="'view-grid'"
+                    [size]="'18px'">
+                  </i>
+                </a>
+            </mz-navbar-item>
+            <mz-navbar-item [active]="viewStyle === 'table'">
+                <a (click)="changeView('table');">  
+                  <i mz-icon-mdi
+                    [align]="'center'"
+                    [icon]="'view-list'"
+                    [size]="'18px'">
+                  </i>
+                </a>
+            </mz-navbar-item>
+          </mz-navbar-item-container>
+    </div> -->
+  </div>
+</mz-navbar>
+<div class="scrollable" id="scrollable">
+  <h1>مسندات الموسوعة</h1>
+  <div class="grid" *ngIf="viewStyle === 'grid'">
+    <div class="row">  
+      <div class="col s12 m4 l3" *ngFor="let doc of documents?.docs | searchDocuments: search.value:route.snapshot.params['page'] | async">
+        <div class="Card">
+          <div class="title" (click)="view(doc._id)">
+            <i mz-icon-mdi
+              [align]="'right'"
+              [icon]="'folder'"
+              [size]="'18px'">
+            </i>
+            <span>{{doc?.name}}</span>
+          </div>
+          <div class="action" id="action-dropdown-card-folder-{{doc._id}}">
+            <i mz-icon-mdi
+              [align]="'center'"
+              [icon]="'dots-vertical'"
+              [size]="'18px'">
+            </i>
+          </div>
+          <mz-dropdown
+            [id]="'dropdown-card-folder-'+doc._id"
+            [align]="'right'"
+            [belowOrigin]="true"
+            [constrainWidth]="true"
+            [dropdownButtonId]="'action-dropdown-card-folder-'+doc._id"
+            [gutter]="true"
+            [hover]="true"
+            [inDuration]="300"
+            [outDuration]="300"
+            [stopPropagation]="true"
+          >
+            <mz-dropdown-item>
+              <a class="action-btn" [routerLink]="['/dashboard','documents','edit',doc._id]">
+                <i mz-icon-mdi
+                  [icon]="'folder-edit'"
+                  [size]="'18px'">
+                </i>
+                <span>تعديل</span>
+              </a>
+            </mz-dropdown-item>
+            <mz-dropdown-item>
+              <a class="action-btn" (click)="delete(doc._id, doc.name)" >
+                <i mz-icon-mdi
+                  [icon]="'delete'"
+                  [size]="'18px'">
+                </i>                
+                <span>حذف</span>
+              </a>
+            </mz-dropdown-item>
+          </mz-dropdown>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="list" *ngIf="viewStyle === 'table'">
+      <table>
+        <thead>
+          <tr>
+            <th>الاسم</th>
+  
+            <th>...</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let doc of documents?.docs | searchDocuments: search.value:route.snapshot.params['page'] | async">
+            <td (click)="view(doc._id)" style="cursor: pointer;">{{doc?.name}}</td>
+            
+            <td>
+              <button mz-button [flat]="true" id="action-dropdown-table-folder-{{doc._id}}">
+                <i mz-icon-mdi
+                  [align]="'center'"
+                  [icon]="'dots-vertical'"
+                  [size]="'18px'">
+                </i>
+              </button>
+              <mz-dropdown
+                [id]="'dropdown-table-folder-'+doc._id"
+                [align]="'right'"
+                [belowOrigin]="true"
+                [constrainWidth]="true"
+                [dropdownButtonId]="'action-dropdown-table-folder-'+doc._id"
+                [gutter]="true"
+                [hover]="true"
+                [inDuration]="300"
+                [outDuration]="300"
+                [stopPropagation]="true"
+              >
+                <mz-dropdown-item>
+                  <a class="action-btn" [routerLink]="['/dashboard','documents','edit',doc._id]">
+                    <i mz-icon-mdi
+                      [icon]="'folder-edit'"
+                      [size]="'18px'">
+                    </i>
+                    <span>تعديل</span>
+                  </a>
+                </mz-dropdown-item>
+                <mz-dropdown-item>
+                  <a class="action-btn" (click)="delete(doc._id, doc.name)">
+                    <i mz-icon-mdi
+                      [icon]="'delete'"
+                      [size]="'18px'">
+                    </i>                
+                    <span>حذف</span>
+                  </a>
+                </mz-dropdown-item>
+              </mz-dropdown>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+
+  <div class="row" style="padding: 20px 20px 30px 20px;">
+      <div class="col s12 paginationLayout" *ngIf="documents?.pagination.pages > 1">
+        <mz-pagination
+          (pageChange)="onPageChange($event)"
+          [currentPage]="documents?.pagination.page"
+          [enableFirstAndLastPageButtons]="true"
+          [itemsPerPage]="10"
+          [totalItems]="documents?.pagination.pages * 10"
+        >
+        </mz-pagination>
+      </div>
+    </div>
+</div>
+

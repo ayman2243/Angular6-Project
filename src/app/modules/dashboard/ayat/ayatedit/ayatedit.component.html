@@ -1,0 +1,77 @@
+<mz-navbar [navbarClass]="'grey'">
+
+  <mz-navbar-item-container [align]="'right'">
+    <mz-navbar-item>
+      <a>
+        <i mz-icon-mdi [align]="'right'" [icon]="'pencil'" [size]="'18px'">
+        </i>
+        تعديل الآية
+      </a>
+    </mz-navbar-item>
+  </mz-navbar-item-container>
+  <mz-navbar-item-container [align]="'left'">
+    <mz-navbar-item>
+      <a [routerLink]="['/dashboard/aya/list']">
+        <i mz-icon-mdi [align]="'left'" [icon]="'arrow-left'" [size]="'18px'">
+        </i>
+        رجوع
+      </a>
+    </mz-navbar-item>
+  </mz-navbar-item-container>
+
+</mz-navbar>
+
+<div class="scrollable">
+  <div class="grid">
+    <div class="row">
+      <div class="col s12">
+        <form [formGroup]="ayaForm" (ngSubmit)="editAya()">
+          <div class="row">
+            <div class="col s12">
+              <mz-input-container>
+                <i mz-icon-mdi mz-input-prefix [align]="'right'" [icon]="'json'" class="icon-prefix">
+                </i>
+                  <select mz-select
+                    id="surah_id"
+                    [label]="'السورة'"
+                    [placeholder]="'اختار السورة'" 
+                    name="surah_id" 
+                    formControlName="surah_id" [(ngModel)]="ayaData.surah_id"
+                    (change)="setName($event.target.value)"
+                  >
+                    <option  *ngFor="let item of sowar?.docs" [selected]="ayaData.surah_id === item._id" value="{{item._id}}">{{item.surahName}}</option>
+                    
+                  </select>
+              </mz-input-container>
+            </div>
+          </div>
+
+
+            <div class="row">
+                <div class="col s12">
+                  <mz-input-container>
+                    <i mz-icon-mdi mz-input-prefix [align]="'right'" [icon]="'json'" class="icon-prefix">
+                    </i>
+                    <input mz-input [label]="'النص'" [validate]="true" [dataError]="'غير صحيح'"
+                        id="text" placeholder="ادخل نص الآية" minlength=1
+                      type="text" name="text" formControlName="text" [(ngModel)]="ayaData.text">
+                  </mz-input-container>
+                </div>
+              </div>    
+
+
+
+          <div class="row">
+            <div class="col s12" style="padding-right: 49px;">
+              <button type="submit" [disabled]="ayaForm.invalid" mz-button class="green" [flat]="false">
+                <i mz-icon-mdi [align]="'right'" [icon]="'plus'">
+                </i>
+                أضافة
+              </button>
+            </div>
+          </div>
+        </form>
+          </div>
+    </div>
+  </div>
+</div>
